@@ -1,0 +1,94 @@
+<!-- ASSESSMENT 3: React Debugging Challenge -->
+
+<!-- This file contains a React component in an HTML file. This React code is broken. Fix the THREE bugs in the code so the user can draw cards and reset the deck. Note: The component is correctly described in this file structure. There is no need to change the architecture of any code. -->
+
+<!-- To see this app render, open the file in your browser by going to file >> open file >> and finding the appropriate file location. -->
+
+<!-- HINT: Check the console in the browser developer tools for errors. The lines numbers may not match up exactly with the line numbers in your text editor. -->
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <script
+      src="https://unpkg.com/react@18/umd/react.development.js"
+      crossorigin
+    ></script>
+    <script
+      src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
+      crossorigin
+    ></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <title>Card Draw</title>
+  </head>
+  <body>
+    <div id="react-container"></div>
+
+    <script type="text/babel">
+
+      // file: src/App.js
+      const { useState } = React
+
+      const App = () => {
+
+        const suit = ["❤️", "♦️", "♠️", "♣️"]
+        const rank = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"]
+        const [hand, setHand] = useState([])
+
+        const drawCard = () => {
+          let draw = `${rank[Math.floor(Math.random() * rank.length)]} ${suit[Math.floor(Math.random() * suit.length)]}`
+          if(hand.indexOf(draw) === -1) {
+            setHand([...hand, draw])
+          } else if(hand.length !== 52) {
+            drawCard()
+          } else {
+            alert("All cards have been dealt.")
+          }
+        }
+
+        const shuffle = () => {
+          setHand([])
+        }
+
+        const handStyles = {
+          display: "flex",
+          flexDirection: "row",
+          flexWrap: "wrap"
+        }
+        const cardStyles = {
+          border: "1px solid black",
+          width: "70px",
+          height: "95px",
+          margin: "10px",
+          padding: "10px"
+        }
+        // No need to change anything ABOVE this line ^
+
+        return (
+          <h1>Draw a Card</h1>
+          <button onClick={}>
+            Click to Draw a Card
+          </button>
+          <button onclick={shuffle}>
+            Return Cards and Shuffle Deck
+          </button>
+          <div style={handStyles}>
+            {hand.map((card, index) => {
+              return (
+                <div style={cardStyles} key={index}>
+                  {card}
+                </div>
+              )
+            })}
+          </div>
+        )
+      }
+
+      // No need to change anything below this line
+
+      const domContainer = document.querySelector('#react-container')
+      const root = ReactDOM.createRoot(domContainer)
+      root.render(<App />)
+    </script>
+  </body>
+</html>
